@@ -1,12 +1,17 @@
+import { Tooltip } from 'react-tooltip'
+
 const Tool = (props) => {
     return (
-        <div className="p-1">
-            <input type="radio" id={props.toolType}
-                checked={props.tool === props.toolType}
-                onChange={() => props.setTool(props.toolType)}
-            />
-            <label htmlFor={props.toolType}>{props.toolType}</label>
-        </div>
+        <button 
+            data-tooltip-id={props.toolType}
+            data-tooltip-content={props.toolType}
+            data-tooltip-delay-show="1000"
+            data-tooltip-delay-hide="10"
+            className="text-base text-zinc-900 p-4 hover:opacity-75" 
+            onClick={() => props.setTool(props.toolType)}>
+            {props.icon}
+            <Tooltip id={props.toolType} />
+        </button>
     )
 }
 

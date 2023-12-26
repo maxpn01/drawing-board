@@ -267,29 +267,31 @@ const Board = () => {
         setScale(prevState => Math.min(Math.max(prevState + delta, 0.1), 20));
     };
 
+    const clear = () => setElements([]);
+
     return (
-        <div className="w-screen h-screen fixed" style={{zIndex: 2}}>
-            <Toolbar tool={tool} setTool={setTool}/>
-            <BottomPanel onZoom={onZoom} setScale={setScale} scale={scale} undo={undo} redo={redo} />
-            {action === "writing" ? (
+        <div className="w-screen h-screen fixed z-[2]">
+            <div className="flex justify-center">
+                <Toolbar tool={tool} setTool={setTool}/>
+            </div>
+            <BottomPanel onZoom={onZoom} setScale={setScale} scale={scale} undo={undo} redo={redo} clear={clear}/>
+            {action === "writing" && (
                 <textarea 
                     ref={textAreaRef}
                     onBlur={handleBlur}
                     name="text"
+                    className="fixed z-[2] m-0 p-0 b-0 outline-none resize-[auto] overflow-hidden whitespace-pre bg-transparent"
                     style={{
-                        position: "fixed",
-                        top: (selectedElement.y1 - 3) * scale + panOffset.y * scale - scaleOffset.y, 
-                        left: selectedElement.x1 * scale + panOffset.x * scale - scaleOffset.x,
+                        top: 
+                            (selectedElement.y1 - 3) * scale + 
+                            panOffset.y * scale - scaleOffset.y, 
+                        left: 
+                            selectedElement.x1 * scale + 
+                            panOffset.x * scale - scaleOffset.x,
                         font: `${24 * scale}px sans-serif`,
-                        margin: 0, padding: 0, border: 0, outline: 0,
-                        resize: "auto",
-                        overflow: "hidden",
-                        whiteSpace: "pre",
-                        background: "transparent",
-                        zIndex: 2
                     }}
                 />
-            ) : null}
+            )}
             <canvas 
                 ref={canvasRef}
                 width={window.innerWidth}
@@ -297,7 +299,7 @@ const Board = () => {
                 onMouseDown={handleMouseDown}
                 onMouseMove={handleMouseMove}
                 onMouseUp={handleMouseUp}
-                style={{position: "absolute", zIndex: 1}}
+                className="absolute z-[1]"
             />       
         </div>
     )

@@ -5,7 +5,7 @@ export default function usePressedKeys() {
 
     useEffect(() => {
         const handleKeyDown = event => {
-        setPressedKeys(prevKeys => new Set(prevKeys).add(event.key));
+            setPressedKeys(prevKeys => new Set(prevKeys).add(event.key));
         };
 
         const handleKeyUp = event => {
