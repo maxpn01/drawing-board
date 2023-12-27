@@ -58,6 +58,7 @@ const Board = () => {
         elements.forEach(element => {
             if (action === "writing" && selectedElement.id === element.id) return;
             drawElement(roughCanvas, context, element)
+            
         });
 
         context.restore();
@@ -151,6 +152,7 @@ const Board = () => {
 
         if (tool === "selection") {
             const element = getElementAtPosition(clientX, clientY, elements);
+
             if (element) {
                 if (element.type === "pencil") {
                     const xOffsets = element.points.map(point => clientX - point.x);
@@ -176,6 +178,7 @@ const Board = () => {
 
             setAction(tool === "text" ? "writing" : "drawing");
         }
+
     };
 
     const handleMouseMove = event => {
